@@ -38,18 +38,30 @@ function addTodo(e) {
 }
 
 todoItemList.addEventListener('click', function (e) {
-    // console.log(e.target.classList);
+
     if (e.target.classList.contains("fa-trash")) {
         console.log(e.target.parentElement.parentElement);
         e.target.parentElement.parentElement.remove();
     }
 
     if (e.target.classList.contains("fa-pen-to-square")) {
-        // console.log(e.target.parentElement.parentElement.firstElementChild);
         let liText = e.target.parentElement.parentElement.firstElementChild.innerText;
         input.value = liText
         input.focus();
         editLi = e.target.parentElement.parentElement;
         addTodoBtn.innerHTML = "Edit"
+    }
+
+    if (e.target.tagName == "P") {
+
+        let p = e.target;
+        p.classList.toggle("done");
+
+        if(e.target.className == "done"){
+            e.target.nextElementSibling.firstElementChild.style.display = "none";
+        }else{
+            e.target.nextElementSibling.firstElementChild.style.display = "inline-block";
+        }
+
     }
 })

@@ -66,3 +66,8 @@ li{
     justify-content: space-between;
     padding:5px 2px;
 }
+
+.done{
+    text-decoration: line-through;
+    opacity: 0.5;
+}
