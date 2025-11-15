@@ -5,6 +5,13 @@ let todoItemList = document.getElementById("todoItems")
 
 let editLi = null;
 
+let allTodos = JSON.parse(localStorage.getItem("alltodos")) || []
+
+function renderTodos() {
+    todoItemList.innerHTML += allTodos
+}
+renderTodos();
+
 document.querySelector("form").addEventListener("submit", function (e) {
     addTodo(e)
 })
@@ -31,23 +38,28 @@ function addTodo(e) {
                <li><p>${input.value}</p><div><i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash"></i></div></li>
             `;
 
+        // allTodos.push(input.value);
         input.value = "";
         addTodoBtn.innerHTML = "Add"
     }
+    localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
 
 }
 
 todoItemList.addEventListener('click', function (e) {
 
     if (e.target.classList.contains("fa-trash")) {
-        console.log(e.target.parentElement.parentElement);
         e.target.parentElement.parentElement.remove();
+
+        localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
+
     }
 
     if (e.target.classList.contains("fa-pen-to-square")) {
         let liText = e.target.parentElement.parentElement.firstElementChild.innerText;
         input.value = liText
         input.focus();
+
         editLi = e.target.parentElement.parentElement;
         addTodoBtn.innerHTML = "Edit"
     }
@@ -57,11 +69,13 @@ todoItemList.addEventListener('click', function (e) {
         let p = e.target;
         p.classList.toggle("done");
 
-        if(e.target.className == "done"){
+        if (e.target.className == "done") {
             e.target.nextElementSibling.firstElementChild.style.display = "none";
-        }else{
+        } else {
             e.target.nextElementSibling.firstElementChild.style.display = "inline-block";
         }
 
     }
+    localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
+
 })
