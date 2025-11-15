@@ -79,3 +79,8 @@ todoItemList.addEventListener('click', function (e) {
     localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
 
 })
+
+function clearTodos(){
+    todoItemList.innerHTML = ""
+    localStorage.removeItem("alltodos")
+}
