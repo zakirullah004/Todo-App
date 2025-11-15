@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div class="container">
+        <h1 style="text-align: center;">My Todo List</h1>
+        <div class="todo-container">
+            <div class="addInput">
+                <form >
+                    <input type="text" id="input">
+                </form>
+                <button id="addTodoBtn" onclick="addTodo()">Add</button>
+            </div>
+            <ul id="todoItems">
+                <li><span>text</span><div><button>edit</button><button>delete</button></div></li>
+            </ul>
+        </div>
+    </div>
     
     <script src="app.js"></script>
 </body>
