@@ -4,11 +4,65 @@
     margin: 0;
     padding: 0;
 }
-
-li{
+body{
+    min-height: 100vh;
+    background-color: purple;
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    background-color: yellowgreen;
+    min-width:600px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 20px 30px;
 }
 
 .todo-container{
-    margin: 50px;
+    /* border: 2px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:100%;
+    gap:1rem;
+    
+}
+#todoItems{
+    display: flex;
+    flex-direction:column;
+    width: 100%;
+}
+
+.addInput{
+    display: flex;
+    width: 100%;
+}
+
+form, form > input{
+    width: 100%;
+}
+input{
+    padding:8px 10px;
+    border-radius: 10px;
+    font-size: 20px;
+    border: none;
+}
+.addInput #addTodoBtn{
+    width: 30%;
+    padding:8px 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+}
+#todoItems{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+li{
+    display: flex;
+    justify-content: space-between;
+    padding:5px 2px;
 }
