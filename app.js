@@ -3,8 +3,10 @@ let input = document.getElementById("input")
 let todoItemList = document.getElementById("todoItems")
 
 
-let editLi = null;
+let editLi = null; // edit ke liye use kiya ha jisme li ot kar ayega 
 
+
+// localstorage se mane apna sare todos mangwae ha
 let allTodos = JSON.parse(localStorage.getItem("alltodos")) || []
 
 function renderTodos() {
@@ -19,17 +21,21 @@ document.querySelector("form").addEventListener("submit", function (e) {
 function addTodo(e) {
     e.preventDefault();
 
-    if (addTodoBtn.innerHTML == "Edit") {
+    if (addTodoBtn.innerHTML == "Edit") { // agar edit ha to new todo add na ho 
 
         // console.log(input.value);
-        editLi.firstElementChild.innerText = input.value
-        addTodoBtn.innerHTML = "Add"
-        addTodoBtn.classList.remove("colorwhenedit")
-        input.value = "";
-        alert("todo edited ")
+        if(!input.value || input.value.trim() == ""){
+            alert("please write someething")
+            input.focus()
+            input.value = editLi.firstElementChild.innerText
+        }else{
+            editLi.firstElementChild.innerText = input.value
+            addTodoBtn.innerHTML = "Add"
+            addTodoBtn.classList.remove("colorwhenedit")
+            input.value = "";
+        }
 
-
-    } else {
+    } else { // simple new todo add karane ke liye
 
         console.log(input.value);
 
@@ -44,17 +50,18 @@ function addTodo(e) {
         addTodoBtn.innerHTML = "Add"
 
     }
-    localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
+    saveTodo()
 
 }
 
 todoItemList.addEventListener('click', function (e) {
 
+    // todo delete karne ke liye
     if (e.target.classList.contains("fa-trash")) {
         e.target.parentElement.parentElement.remove();
-        localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
     }
 
+    // todo edit karne ke liye
     if (e.target.classList.contains("fa-pen-to-square")) {
         let liText = e.target.parentElement.parentElement.firstElementChild.innerText;
         input.value = liText
@@ -66,6 +73,7 @@ todoItemList.addEventListener('click', function (e) {
 
     }
 
+    // text highlight ke liye jab complete todo ho jaye tab
     if (e.target.tagName == "P") {
 
         let p = e.target;
@@ -78,11 +86,16 @@ todoItemList.addEventListener('click', function (e) {
         }
 
     }
-    localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
+    saveTodo()
 
 })
 
+// sare todos remove kardega
 function clearTodos() {
     todoItemList.innerHTML = ""
     localStorage.removeItem("alltodos")
+}
+
+function saveTodo(){
+    localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
 }
