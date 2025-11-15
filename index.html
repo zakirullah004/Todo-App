@@ -9,18 +9,18 @@
 </head>
 <body>
 
+    <h1 style="text-align: center;">My Todo List</h1>
     <div class="container">
-        <h1 style="text-align: center;">My Todo List</h1>
         <div class="todo-container">
             <div class="addInput">
                 <form >
                     <input type="text" id="input">
                 </form>
-                <button id="addTodoBtn" onclick="addTodo()">Add</button>
+                <button id="addTodoBtn" type="submit" onclick="addTodo(event)">Add</button>
             </div>
             <ul id="todoItems">
             </ul>
-            <p onclick="clearTodos()" style="text-align: center;">clear Todos</p>
+            <p title="delete all todos" class="clearTodos" onclick="clearTodos()" style="text-align: center;color: rgb(68, 62, 62);">clear All Todos</p>
         </div>
     </div>
     

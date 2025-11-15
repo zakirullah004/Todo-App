@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 *{
     margin: 0;
@@ -6,28 +6,37 @@
 }
 body{
     min-height: 100vh;
-    background-color: purple;
+    background-color: rgb(216, 211, 216);
     display: flex;
     align-items: center;
     justify-content: center;
+   font-family: "Exo 2", sans-serif;
+   flex-direction: column;
+   gap: 2rem;
 }
 .container{
-    background-color: yellowgreen;
+    background-color: rgb(162, 30, 199);
     min-width:600px;
     display: flex;
     flex-direction: column;
     gap: 3rem;
     padding: 20px 30px;
+    border-radius:18px;
+}
+h1{
+       color:rgb(162, 30, 199);
+       text-transform: uppercase;
+       word-spacing: 10px;
+       font-weight: 700;
+       font-size: 40px;
 }
 
 .todo-container{
-    /* border: 2px solid black; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     width:100%;
-    gap:1rem;
-    
+    gap:1rem;    
 }
 #todoItems{
     display: flex;
@@ -38,23 +47,29 @@ body{
 .addInput{
     display: flex;
     width: 100%;
+    background-color:rgb(233, 230, 230);
+    border-radius: 20px;
 }
 
-form, form > input{
+form{
     width: 100%;
 }
 input{
     padding:8px 10px;
-    border-radius: 10px;
+    border-radius: 20px;
     font-size: 20px;
     border: none;
+    outline:none;
+    width: 100%;
 }
 .addInput #addTodoBtn{
-    width: 30%;
+    width: 50%;
     padding:8px 10px;
-    border-radius: 10px;
+    border-radius: 30px;
     border: none;
     font-size: 18px;
+    background:rgb(20, 245, 200);
+    color: rgb(162, 30, 199);
 }
 #todoItems{
     display: flex;
@@ -65,9 +80,61 @@ li{
     display: flex;
     justify-content: space-between;
     padding:5px 2px;
+    list-style: none;
+    font-size:18px;
 }
-
+li p{
+    font-size:22px;
+    color: rgb(233, 230, 230);
+}
+.icons{
+    display: flex;
+    gap: 5px;
+}
 .done{
     text-decoration: line-through;
     opacity: 0.5;
+}
+.fa-trash{
+    color: rgb(45, 42, 42);
+}
+.fa-pen-to-square{
+    color: rgb(174, 213, 186);
+}
+.fa-pen-to-square:hover,.fa-trash:hover{
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+.clearTodos:hover{
+    cursor: pointer;
+}
+.colorwhenedit{
+    background-color: goldenrod !important;
+    color: white !important;
+}
+
+
+@media screen and (max-width:690px) {
+    .container{
+        min-width:80vw;
+    }
+}
+
+@media screen and (max-width:576px) {
+    .container{
+        margin:0px 35px;
+    }
+    li p{
+        font-size:18px;
+    }
+    i{
+        font-size: 18px;
+    }
+    input{
+        font-size:18px;
+    }
+    .clearTodos{
+        color: rgb(0, 0, 0) !important;
+        font-size:18px;
+    }
 }

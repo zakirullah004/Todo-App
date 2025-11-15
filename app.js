@@ -24,8 +24,10 @@ function addTodo(e) {
         // console.log(input.value);
         editLi.firstElementChild.innerText = input.value
         addTodoBtn.innerHTML = "Add"
+        addTodoBtn.classList.remove("colorwhenedit")
         input.value = "";
         alert("todo edited ")
+
 
     } else {
 
@@ -35,12 +37,12 @@ function addTodo(e) {
 
 
         todoItemList.innerHTML += `
-               <li><p>${input.value}</p><div><i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash"></i></div></li>
+               <li><p>${input.value}</p><div class="icons"><i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash"></i></div></li>
             `;
 
-        // allTodos.push(input.value);
         input.value = "";
         addTodoBtn.innerHTML = "Add"
+
     }
     localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
 
@@ -50,9 +52,7 @@ todoItemList.addEventListener('click', function (e) {
 
     if (e.target.classList.contains("fa-trash")) {
         e.target.parentElement.parentElement.remove();
-
         localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
-
     }
 
     if (e.target.classList.contains("fa-pen-to-square")) {
@@ -62,6 +62,8 @@ todoItemList.addEventListener('click', function (e) {
 
         editLi = e.target.parentElement.parentElement;
         addTodoBtn.innerHTML = "Edit"
+        addTodoBtn.classList.add("colorwhenedit")
+
     }
 
     if (e.target.tagName == "P") {
@@ -80,7 +82,7 @@ todoItemList.addEventListener('click', function (e) {
 
 })
 
-function clearTodos(){
+function clearTodos() {
     todoItemList.innerHTML = ""
     localStorage.removeItem("alltodos")
 }
