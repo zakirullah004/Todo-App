@@ -10,9 +10,9 @@ let editLi = null; // edit ke liye use kiya ha jisme li ot kar ayega
 let allTodos = JSON.parse(localStorage.getItem("alltodos")) || []
 
 
-document.querySelector("form").addEventListener("submit", function (e) {
-    addTodo(e)
-})
+// document.querySelector("form").addEventListener("submit", function (e) {
+//     addTodo(e)
+// })
 
 function addTodo(e) {
     e.preventDefault();
@@ -69,18 +69,23 @@ function addTodo(e) {
 
 
 function renderTodos() {
+    addTodoBtn.innerHTML = "Add"
+    input.value = ""
+    addTodoBtn.removeAttribute("onclick")
+    addTodoBtn.setAttribute("onclick", `addTodo()`)
+    addTodoBtn.classList.remove("colorwhenedit")
 
     todoItemList.innerHTML = ""
 
     let allTodos = JSON.parse(localStorage.getItem("alltodos")) || []
-
+    // console.log(allTodos);
     allTodos.forEach(function (item, index) {
         let li = document.createElement("li")
         li.innerHTML += `
 
                 <p>${item}</p>
                 <div class="icons">
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-pen-to-square" onclick="editTodo(${index})"></i>
                     <i class="fa-solid fa-trash" onclick="deleteTodo(${index})"></i>
                 </div>
             `;
@@ -93,9 +98,37 @@ function deleteTodo(todoIndex) {
     console.log(allTodos);
     // console.log("ma chala",todoIndex);
     // console.log(allTodos[todoIndex]);
-    allTodos.splice(todoIndex,1); // delete todo from local storage
-    localStorage.setItem("alltodos",JSON.stringify(allTodos))
+    allTodos.splice(todoIndex, 1); // delete todo from local storage
+    localStorage.setItem("alltodos", JSON.stringify(allTodos))
     console.log(allTodos);
     renderTodos()
 }
 
+function editTodo(todoIndex) {
+
+    // console.log(allTodos[todoIndex]);
+    input.focus()
+    input.value = allTodos[todoIndex]
+
+    addTodoBtn.innerHTML = "Edit";
+    addTodoBtn.classList.add("colorwhenedit")
+    if (addTodoBtn.innerHTML == "Edit") {
+        addTodoBtn.removeAttribute("onclick")
+        addTodoBtn.setAttribute("onclick", `editHandler(${todoIndex})`)
+    }
+
+}
+
+function editHandler(ind) {
+
+    // console.log("ma chala", ind);
+    allTodos.splice(ind, 1, input.value)
+    localStorage.setItem("alltodos", JSON.stringify(allTodos));
+    renderTodos()
+}
+
+
+// function clearTodos(){
+//     localStorage.setItem("alltodos",JSON.stringify([]))
+//     renderTodos()
+// }
