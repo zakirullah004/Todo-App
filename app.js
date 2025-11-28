@@ -72,7 +72,7 @@ function editTodo(todoIndex) {
     addTodoBtn.innerHTML = "Edit";
 
     addTodoBtn.classList.add("colorwhenedit")
-    
+
     addTodoBtn.removeAttribute("onclick")
     addTodoBtn.setAttribute("onclick", `editHandler(${todoIndex})`)
 
@@ -87,24 +87,36 @@ function editHandler(ind) {
 }
 
 
-function clearTodos(){
-    localStorage.setItem("alltodos",JSON.stringify([]))
+function clearTodos() {
+    localStorage.setItem("alltodos", JSON.stringify([]))
     todoItemList.innerHTML = "";
     allTodos = []
 }
 
-const checkbox = document.getElementById("checkbox")
+const checkbox = document.getElementById("checkbox");
+
+function modeHandler() {
+    let currTheme = localStorage.getItem("theme")
+    console.log(currTheme);
+    if (currTheme == "light" || currTheme ==  null) {
+        document.body.classList.remove("dark")
+        document.querySelector(".container").classList.remove("todo-container-dark")
+        document.querySelector(".clearTodos").classList.remove("clearTodos-dark")
+    } else {
+        checkbox.checked = true
+        document.body.classList.add("dark")
+        document.querySelector(".container").classList.add("todo-container-dark")
+        document.querySelector(".clearTodos").classList.add("clearTodos-dark")
+    }
+}
+modeHandler()
 checkbox.addEventListener("change", () => {
-  document.body.classList.toggle("dark")
+    if(checkbox.checked){
+        localStorage.setItem("theme","dark")
+    }else{
+        localStorage.setItem("theme","light")
+    }
+    modeHandler()
 })
 
 
-// modal styling
-
-document.querySelector(".fa-gear").addEventListener('click',()=>{
-    document.getElementById("myModal").classList.remove("hideModal")
-})
-
-document.getElementById("closeBtn").addEventListener('click',()=>{
-    document.getElementById("myModal").classList.add("hideModal")
-})

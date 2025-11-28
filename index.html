@@ -12,25 +12,14 @@
 <body>
 
     <nav>
-        <h1>mode</h1>
-        <i class="fa-solid fa-gear"></i>
+        <input type="checkbox" class="checkbox" id="checkbox">
+        <label for="checkbox" class="checkbox-label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <span class="ball"></span>
+        </label>
     </nav>
 
-    <div id="myModal" class="hideModal">
-
-        <i id="closeBtn" class="fa-solid fa-x"></i>
-
-        <div id="themeBox">
-            <p>Select Theme : </p>
-            <input type="checkbox" class="checkbox" id="checkbox">
-            <label for="checkbox" class="checkbox-label">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-                <span class="ball"></span>
-            </label>
-        </div>
-
-    </div>
 
     <div id="todoContainer">
         <h1 style="text-align: center;">My Todo List</h1>
@@ -38,14 +27,14 @@
             <div class="todo-container">
                 <div class="addInput">
                     <form>
-                        <input type="text" id="input">
+                        <input type="text" id="input" autocomplete="off">
                         <button id="addTodoBtn" type="submit" onclick="addTodo(event)">Add</button>
                     </form>
                 </div>
                 <ul id="todoItems">
                 </ul>
                 <p title="delete all todos" class="clearTodos" onclick="clearTodos()"
-                    style="text-align: center;color: rgb(68, 62, 62);">clear All Todos</p>
+                    style="text-align: center;">clear All Todos</p>
             </div>
         </div>
     </div>
