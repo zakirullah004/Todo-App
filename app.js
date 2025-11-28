@@ -3,19 +3,17 @@ let input = document.getElementById("input")
 let todoItemList = document.getElementById("todoItems")
 
 
-let editLi = null; // edit ke liye use kiya ha jisme li ot kar ayega 
 
 
 // localstorage se mane apna sare todos mangwae ha
 let allTodos = JSON.parse(localStorage.getItem("alltodos")) || []
 
 
-// document.querySelector("form").addEventListener("submit", function (e) {
-//     addTodo(e)
-// })
+document.querySelector("form").addEventListener("submit", function (e) {
+    e.preventDefault()
+})
 
 function addTodo(e) {
-    e.preventDefault();
 
     if (!input.value || input.value.trim() == "") return alert("please write something");
 
@@ -25,55 +23,17 @@ function addTodo(e) {
     input.value = ""
 
     renderTodos()
-
-
-    // if (addTodoBtn.innerHTML == "Edit") { // agar edit ha to new todo add na ho 
-
-    //     // console.log(input.value);
-    //     if (!input.value || input.value.trim() == "") {
-    //         alert("please write someething")
-    //         input.focus()
-    //         input.value = editLi.firstElementChild.innerText
-    //     } else {
-    //         editLi.firstElementChild.innerText = input.value
-    //         addTodoBtn.innerHTML = "Add"
-    //         addTodoBtn.classList.remove("colorwhenedit")
-    //         input.value = "";
-    //     }
-
-    // } else { // simple new todo add karane ke liye
-
-    //     console.log(input.value);
-
-    //     if (!input.value || input.value.trim() == "") return alert("please write something");
-
-
-    //     todoItemList.innerHTML += `
-    //            <li>
-    //             <p>${input.value}</p>
-    //             <div class="icons">
-    //                 <i class="fa-solid fa-pen-to-square"></i>
-    //                 <i class="fa-solid fa-trash" onclick="deleteTodo(})"></i>
-    //             </div>
-    //             </li>
-    //         `;
-
-    //     allTodos.push(input.value)
-    //     input.value = "";
-    //     addTodoBtn.innerHTML = "Add"
-
-    // }
-    // localStorage.setItem("alltodos", JSON.stringify(allTodos))
-
 }
 
 
 function renderTodos() {
-    addTodoBtn.innerHTML = "Add"
-    input.value = ""
-    addTodoBtn.removeAttribute("onclick")
-    addTodoBtn.setAttribute("onclick", `addTodo()`)
-    addTodoBtn.classList.remove("colorwhenedit")
+    if (addTodoBtn.innerHTML == "Edit") {
+        addTodoBtn.innerHTML = "Add"
+        input.value = ""
+        addTodoBtn.removeAttribute("onclick")
+        addTodoBtn.setAttribute("onclick", `addTodo()`)
+        addTodoBtn.classList.remove("colorwhenedit")
+    }
 
     todoItemList.innerHTML = ""
 
@@ -105,17 +65,16 @@ function deleteTodo(todoIndex) {
 }
 
 function editTodo(todoIndex) {
-
     // console.log(allTodos[todoIndex]);
     input.focus()
     input.value = allTodos[todoIndex]
 
     addTodoBtn.innerHTML = "Edit";
+
     addTodoBtn.classList.add("colorwhenedit")
-    if (addTodoBtn.innerHTML == "Edit") {
-        addTodoBtn.removeAttribute("onclick")
-        addTodoBtn.setAttribute("onclick", `editHandler(${todoIndex})`)
-    }
+    
+    addTodoBtn.removeAttribute("onclick")
+    addTodoBtn.setAttribute("onclick", `editHandler(${todoIndex})`)
 
 }
 
