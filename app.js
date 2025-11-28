@@ -9,10 +9,6 @@ let editLi = null; // edit ke liye use kiya ha jisme li ot kar ayega
 // localstorage se mane apna sare todos mangwae ha
 let allTodos = JSON.parse(localStorage.getItem("alltodos")) || []
 
-function renderTodos() {
-    todoItemList.innerHTML += allTodos
-}
-renderTodos();
 
 document.querySelector("form").addEventListener("submit", function (e) {
     addTodo(e)
@@ -21,81 +17,85 @@ document.querySelector("form").addEventListener("submit", function (e) {
 function addTodo(e) {
     e.preventDefault();
 
-    if (addTodoBtn.innerHTML == "Edit") { // agar edit ha to new todo add na ho 
+    if (!input.value || input.value.trim() == "") return alert("please write something");
 
-        // console.log(input.value);
-        if(!input.value || input.value.trim() == ""){
-            alert("please write someething")
-            input.focus()
-            input.value = editLi.firstElementChild.innerText
-        }else{
-            editLi.firstElementChild.innerText = input.value
-            addTodoBtn.innerHTML = "Add"
-            addTodoBtn.classList.remove("colorwhenedit")
-            input.value = "";
-        }
+    allTodos.push(input.value)
 
-    } else { // simple new todo add karane ke liye
+    localStorage.setItem("alltodos", JSON.stringify(allTodos))
+    input.value = ""
 
-        console.log(input.value);
-
-        if (!input.value || input.value.trim() == "") return alert("please write something");
+    renderTodos()
 
 
-        todoItemList.innerHTML += `
-               <li><p>${input.value}</p><div class="icons"><i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash"></i></div></li>
-            `;
+    // if (addTodoBtn.innerHTML == "Edit") { // agar edit ha to new todo add na ho 
 
-        input.value = "";
-        addTodoBtn.innerHTML = "Add"
+    //     // console.log(input.value);
+    //     if (!input.value || input.value.trim() == "") {
+    //         alert("please write someething")
+    //         input.focus()
+    //         input.value = editLi.firstElementChild.innerText
+    //     } else {
+    //         editLi.firstElementChild.innerText = input.value
+    //         addTodoBtn.innerHTML = "Add"
+    //         addTodoBtn.classList.remove("colorwhenedit")
+    //         input.value = "";
+    //     }
 
-    }
-    saveTodo()
+    // } else { // simple new todo add karane ke liye
+
+    //     console.log(input.value);
+
+    //     if (!input.value || input.value.trim() == "") return alert("please write something");
+
+
+    //     todoItemList.innerHTML += `
+    //            <li>
+    //             <p>${input.value}</p>
+    //             <div class="icons">
+    //                 <i class="fa-solid fa-pen-to-square"></i>
+    //                 <i class="fa-solid fa-trash" onclick="deleteTodo(})"></i>
+    //             </div>
+    //             </li>
+    //         `;
+
+    //     allTodos.push(input.value)
+    //     input.value = "";
+    //     addTodoBtn.innerHTML = "Add"
+
+    // }
+    // localStorage.setItem("alltodos", JSON.stringify(allTodos))
 
 }
 
-todoItemList.addEventListener('click', function (e) {
 
-    // todo delete karne ke liye
-    if (e.target.classList.contains("fa-trash")) {
-        e.target.parentElement.parentElement.remove();
-    }
+function renderTodos() {
 
-    // todo edit karne ke liye
-    if (e.target.classList.contains("fa-pen-to-square")) {
-        let liText = e.target.parentElement.parentElement.firstElementChild.innerText;
-        input.value = liText
-        input.focus();
-
-        editLi = e.target.parentElement.parentElement;
-        addTodoBtn.innerHTML = "Edit"
-        addTodoBtn.classList.add("colorwhenedit")
-
-    }
-
-    // text highlight ke liye jab complete todo ho jaye tab
-    if (e.target.tagName == "P") {
-
-        let p = e.target;
-        p.classList.toggle("done");
-
-        if (e.target.className == "done") {
-            e.target.nextElementSibling.firstElementChild.style.display = "none";
-        } else {
-            e.target.nextElementSibling.firstElementChild.style.display = "inline-block";
-        }
-
-    }
-    saveTodo()
-
-})
-
-// sare todos remove kardega
-function clearTodos() {
     todoItemList.innerHTML = ""
-    localStorage.removeItem("alltodos")
+
+    let allTodos = JSON.parse(localStorage.getItem("alltodos")) || []
+
+    allTodos.forEach(function (item, index) {
+        let li = document.createElement("li")
+        li.innerHTML += `
+
+                <p>${item}</p>
+                <div class="icons">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-trash" onclick="deleteTodo(${index})"></i>
+                </div>
+            `;
+        todoItemList.prepend(li)
+    })
+}
+renderTodos()
+
+function deleteTodo(todoIndex) {
+    console.log(allTodos);
+    // console.log("ma chala",todoIndex);
+    // console.log(allTodos[todoIndex]);
+    allTodos.splice(todoIndex,1); // delete todo from local storage
+    localStorage.setItem("alltodos",JSON.stringify(allTodos))
+    console.log(allTodos);
+    renderTodos()
 }
 
-function saveTodo(){
-    localStorage.setItem("alltodos", JSON.stringify(todoItemList.innerHTML))
-}
