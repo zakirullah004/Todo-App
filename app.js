@@ -87,7 +87,8 @@ function editHandler(ind) {
 }
 
 
-// function clearTodos(){
-//     localStorage.setItem("alltodos",JSON.stringify([]))
-//     renderTodos()
-// }
+function clearTodos(){
+    localStorage.setItem("alltodos",JSON.stringify([]))
+    todoItemList.innerHTML = "";
+    allTodos = []
+}
