@@ -92,3 +92,19 @@ function clearTodos(){
     todoItemList.innerHTML = "";
     allTodos = []
 }
+
+const checkbox = document.getElementById("checkbox")
+checkbox.addEventListener("change", () => {
+  document.body.classList.toggle("dark")
+})
+
+
+// modal styling
+
+document.querySelector(".fa-gear").addEventListener('click',()=>{
+    document.getElementById("myModal").classList.remove("hideModal")
+})
+
+document.getElementById("closeBtn").addEventListener('click',()=>{
+    document.getElementById("myModal").classList.add("hideModal")
+})
